@@ -10,12 +10,21 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
+import HomePage from './components/HomePage';
+import SinglePage from './components/SinglePage';
+import CreatePage from './components/CreatePage';
 
 const router = new Router(on => {
   on('*', async (state, next) => {
     const component = await next();
     return component && <App context={state.context}>{component}</App>;
   });
+
+  on('/home', async () => <HomePage />);
+
+  on('/single/:id', async (state) => <SinglePage _id={state.params.id}/>);
+
+  on('/create', async () => <CreatePage />);
 
   on('/contact', async () => <ContactPage />);
 
