@@ -4,6 +4,8 @@ import React, { PropTypes, Component } from 'react';
 import styles from './CreatePage.css';
 import withStyles from '../../decorators/withStyles';
 import Memories, { addMemory } from '../../stores/MemoryStore';
+import TypeSelector from '../TypeSelector';
+import PersonForm from '../PersonForm';
 
 @withStyles(styles)
 class CreatePage extends Component {
@@ -14,10 +16,15 @@ class CreatePage extends Component {
 
   constructor() {
     super();
-    this.state = { title: '', copy: ''};
+    this.state = { type: '', title: '', copy: ''};
   }
 
   componentWillUnmount() {}
+
+  handleTypeChange(e) {
+    this.setState({ type: e.target.value });
+    console.log(e, 'type changed');
+  }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -28,31 +35,41 @@ class CreatePage extends Component {
     this.setState({title: '', copy: ''});
   }
 
-  handleTitleChange(e) {
-    this.setState({ title: e.target.value });
-  }
-
-  handleCopyChange(e) {
-    this.setState({ copy: e.target.value });
+  handleInputChange(e) {
+    let newState = {};
+    newState[e.target.name] = e.target.value
+    this.setState(newState);
+    console.log(this.state);
   }
 
   render() {
     const title = 'Create Page';
     this.context.onSetTitle(title);
 
-    return (
-      <div className="CreatePage">
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <label>Title</label>
-          <input type="text" placeholder="Add Title Here" value={this.state.title} onChange={this.handleTitleChange.bind(this)}/>
-          <label>Copy</label>
-          <input type="text" placeholder="Add Copy Here" value={this.state.copy} onChange={this.handleCopyChange.bind(this)}/>
-          <input type="submit" value="Add New Memory" />
-        </form>
-      </div>
-    );
-  }
+    if (this.state.type == 'person') {
+      return (
+        <div className="CreatePage">
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
+            <PersonForm onInputChange={this.handleInputChange.bind(this)} />
+            <input type="submit" value="Add New Memory" />
+          </form>
+        </div>
+      );
 
+    } else {
+
+      return (
+        <div className="CreatePage">
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
+            <div> Hello </div>
+            <input type="submit" value="Add New Memory" />
+          </form>
+        </div>
+      );
+    }
+  }
 }
 
 export default CreatePage;
