@@ -1,0 +1,6 @@
+{
+  "name": "SinglePage",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SinglePage.js"
+}
