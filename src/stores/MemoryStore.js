@@ -16,6 +16,9 @@ const Memories = [
   }
 ];
 
-const addMemory = memory => Memories.push(memory);
+const addMemory = memory => {
+  memory['_id'] = Memories.length + 1;
+  Memories.push(memory);
+};
 
 export { Memories as default, addMemory };

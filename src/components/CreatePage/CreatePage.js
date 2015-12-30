@@ -16,30 +16,25 @@ class CreatePage extends Component {
 
   constructor() {
     super();
-    this.state = { type: '', title: '', copy: ''};
+    this.state = {type: 'person'};
   }
 
   componentWillUnmount() {}
 
   handleTypeChange(e) {
+    this.state = {};
     this.setState({ type: e.target.value });
-    console.log(e, 'type changed');
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    let title = this.state.title.trim();
-    let copy = this.state.copy.trim();
-    console.log(title, copy);
-    addMemory({title: title, copy: copy, _id: Memories.length + 1});
-    this.setState({title: '', copy: ''});
+    addMemory(this.state);
   }
 
   handleInputChange(e) {
     let newState = {};
     newState[e.target.name] = e.target.value
     this.setState(newState);
-    console.log(this.state);
   }
 
   render() {
