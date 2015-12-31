@@ -19,6 +19,7 @@ const Memories = [
 const addMemory = memory => {
   memory['_id'] = Memories.length + 1;
   Memories.push(memory);
+  console.log(Memories);
 };
 
 export { Memories as default, addMemory };

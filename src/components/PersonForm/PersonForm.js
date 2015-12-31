@@ -12,14 +12,30 @@ class PersonForm extends Component {
   }
 
   render() {
-    return (
-      <section className="personForm">
-        <label>Name</label>
-        <input type="text" placeholder="Add Title Here" name="name" onChange={this.handleInputChange.bind(this)}/>
-        <label>Age</label>
-        <input type="text" placeholder="Add Copy Here" name="age" onChange={this.handleInputChange.bind(this)}/>
-      </section>
-    );
+
+    if (this.props.inputsCleared) {
+
+      return (
+        <section className="personForm">
+          <label>Name</label>
+          <input type="text" placeholder="Add Title Here" name="name" value='' onChange={this.handleInputChange.bind(this)}/>
+          <label>Age</label>
+          <input type="text" placeholder="Add Copy Here" name="age" value='' onChange={this.handleInputChange.bind(this)}/>
+        </section>
+      );
+
+    } else {
+
+      return (
+        <section className="personForm">
+          <label>Name</label>
+          <input type="text" placeholder="Add Title Here" name="name" onChange={this.handleInputChange.bind(this)}/>
+          <label>Age</label>
+          <input type="text" placeholder="Add Copy Here" name="age" onChange={this.handleInputChange.bind(this)}/>
+        </section>
+      );
+
+    }
   }
 
 }

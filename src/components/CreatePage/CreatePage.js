@@ -19,8 +19,6 @@ class CreatePage extends Component {
     this.state = {type: 'person'};
   }
 
-  componentWillUnmount() {}
-
   handleTypeChange(e) {
     this.state = {};
     this.setState({ type: e.target.value });
@@ -29,10 +27,11 @@ class CreatePage extends Component {
   handleSubmit(e) {
     e.preventDefault();
     addMemory(this.state);
+    this.setState({inputsCleared: true});
   }
 
   handleInputChange(e) {
-    let newState = {};
+    let newState = {inputsCleared: false};
     newState[e.target.name] = e.target.value
     this.setState(newState);
   }
@@ -46,7 +45,7 @@ class CreatePage extends Component {
         <div className="CreatePage">
           <form onSubmit={this.handleSubmit.bind(this)}>
             <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
-            <PersonForm onInputChange={this.handleInputChange.bind(this)} />
+            <PersonForm inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />
             <input type="submit" value="Add New Memory" />
           </form>
         </div>
