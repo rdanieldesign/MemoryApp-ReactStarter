@@ -16,23 +16,23 @@ class CreatePage extends Component {
 
   constructor() {
     super();
-    this.state = {type: 'person'};
+    this.state = { memory: { type: 'person' } };
   }
 
   handleTypeChange(e) {
     this.state = {};
-    this.setState({ type: e.target.value });
+    this.setState({ memory: { type: e.target.value } });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    addMemory(this.state);
+    addMemory(this.state.memory);
     this.setState({inputsCleared: true});
   }
 
   handleInputChange(e) {
-    let newState = {inputsCleared: false};
-    newState[e.target.name] = e.target.value
+    let newState = {inputsCleared: false, memory: this.state.memory};
+    newState['memory'][e.target.name] = e.target.value
     this.setState(newState);
   }
 
@@ -40,7 +40,7 @@ class CreatePage extends Component {
     const title = 'Create Page';
     this.context.onSetTitle(title);
 
-    if (this.state.type == 'person') {
+    if (this.state.memory.type == 'person') {
       return (
         <div className="CreatePage">
           <form onSubmit={this.handleSubmit.bind(this)}>
