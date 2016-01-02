@@ -9,10 +9,19 @@ import Link from '../Link';
 class MemoryItem extends Component {
 
   render() {
+
+    let properties = [];
+
+    for(var i in this.props.properties){
+      properties.push(<li>{i}: {this.props.properties[i]}</li>);
+    }
+
     return (
       <li className="MemoryItem" data-id={this.props._id}>
         <h3> {this.props.title} </h3>
-        <p> {this.props.copy} </p>
+        <ul>
+          { properties }
+        </ul>
         <a href={"/single/" + this.props._id} onClick={Link.handleClick}> See More </a>
       </li>
     );
