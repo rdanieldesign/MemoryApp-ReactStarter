@@ -13,7 +13,7 @@ class MemoryItem extends Component {
     let properties = [];
 
     for(var i in this.props.properties){
-      properties.push(<li>{i}: {this.props.properties[i]}</li>);
+      properties.push(<li key={i}> {i}: {this.props.properties[i]} </li>);
     }
 
     return (

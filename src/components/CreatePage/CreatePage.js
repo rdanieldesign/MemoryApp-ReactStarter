@@ -3,7 +3,7 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './CreatePage.css';
 import withStyles from '../../decorators/withStyles';
-import Memories, { addMemory } from '../../stores/MemoryStore';
+import { addMemory } from '../../stores/MemoryStore';
 import TypeSelector from '../TypeSelector';
 import PersonForm from '../PersonForm';
 import PlaceForm from '../PlaceForm';
@@ -27,13 +27,14 @@ class CreatePage extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log('memory', this.state.memory);
     addMemory(this.state.memory);
     this.setState({inputsCleared: true});
   }
 
   handleInputChange(e) {
     let newState = {inputsCleared: false, memory: this.state.memory};
-    newState['memory'][e.target.name] = e.target.value
+    newState.memory[e.target.name.toString()] = e.target.value;
     this.setState(newState);
   }
 
