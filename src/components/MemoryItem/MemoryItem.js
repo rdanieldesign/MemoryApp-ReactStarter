@@ -9,6 +9,7 @@ import Link from '../Link';
 class MemoryItem extends Component {
 
   render() {
+    console.log(this.props);
 
     let properties = [];
 
@@ -18,7 +19,7 @@ class MemoryItem extends Component {
 
     return (
       <li className="MemoryItem" data-id={this.props._id}>
-        <h3> {this.props.title} </h3>
+        <h3> {this.props.properties.title} </h3>
         <ul>
           { properties }
         </ul>

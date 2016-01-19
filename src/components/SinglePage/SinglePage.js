@@ -15,26 +15,27 @@ class SinglePage extends Component {
 
   constructor() {
     super();
-    this.state = { memory: { properties: []}};
+    this.state = {
+      item: { properties: {} }
+    };
   }
 
   componentDidMount() {
-    getSingleMemory(this.props._id).done( data => {
-      this.setState({ memory: data });
-    })
+    getSingleMemory.call(this, this.props._id, this.handleNewData);
+  }
+
+  handleNewData(data) {
+    this.setState({ item: data });
   }
 
   render() {
     const title = 'Home Page';
     this.context.onSetTitle(title);
 
-    let item = this.state.memory;
-    console.log(item);
-
     return (
       <div className="SinglePage">
         <ul className="SinglePage-container">
-          <MemoryItem title={this.state.memory.title} properties={this.state.memory} _id={this.state.memory._id} key={this.state.memory._id} />
+          <MemoryItem properties={this.state.item.properties} _id={this.state.item._id} key={this.state.item._id} />
         </ul>
       </div>
     );

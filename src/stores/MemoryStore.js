@@ -1,17 +1,22 @@
 const $ = require('jquery');
 
-const getAllMemories = function(){
-    return $.getJSON('/records/all');
+const getAllMemories = function(cb){
+    $.getJSON('/records/all').done( data => {
+      cb.call(this, data);
+    });
 }
 
-const getSingleMemory = function(id){
-    return $.getJSON('/records/single/' + id);
+const getSingleMemory = function(id, cb){
+    $.getJSON('/records/single/' + id).done( data => {
+      cb.call(this, data[0]);
+    });
 }
 
 const addMemory = function(memory){
-  let data = { properties: JSON.stringify(memory) };
+  let data = JSON.stringify({ properties: memory });
     return $.ajax({
         url: '/records/new',
+        contentType: 'application/json',
         dataType: 'json',
         data: data,
         type: 'POST'

@@ -12,21 +12,23 @@ class MemoryList extends Component {
 
   constructor() {
     super();
-    this.state = { memories: [] };
+    this.state = { items: [] };
   }
 
   componentDidMount() {
-    getAllMemories().done( (data) => {
-      this.setState({ memories: data });
-    })
+    getAllMemories.call(this, this.handleNewData);
+  }
+
+  handleNewData(data) {
+    this.setState({ items: data });
   }
 
   render() {
 
     let items = [];
 
-    this.state.memories.forEach( item => {
-      items.push(<MemoryItem title={item.properties.title} properties={JSON.parse(item.properties)} _id={item._id} key={item._id} />)
+    this.state.items.forEach( item => {
+      items.push(<MemoryItem properties={item.properties} _id={item._id} key={item._id} />)
     });
 
     return (
