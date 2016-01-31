@@ -1,11 +1,8 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { Component } from 'react';
-import styles from './MemoryItem.css';
-import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
 
-@withStyles(styles)
 class MemoryItem extends Component {
 
   render() {

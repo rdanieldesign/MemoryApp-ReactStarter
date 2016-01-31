@@ -1,10 +1,7 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { Component } from 'react';
-import styles from './PersonForm.css';
-import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles)
 class PersonForm extends Component {
 
   handleInputChange(e) {

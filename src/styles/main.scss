@@ -4,4 +4,23 @@
 // Import vendor styles
 
 // Import component styles
+@import '../components/App/App';
+@import '../components/ContactPage/ContactPage';
+@import '../components/ContentPage/ContentPage';
+@import '../components/CreatePage/CreatePage';
+@import '../components/ErrorPage/ErrorPage';
+@import '../components/Feedback/Feedback';
+@import '../components/Footer/Footer';
+@import '../components/Header/Header';
+@import '../components/HomePage/HomePage';
+@import '../components/LoginPage/LoginPage';
+@import '../components/MemoryItem/MemoryItem';
 @import '../components/MemoryList/MemoryList';
+@import '../components/Navigation/Navigation';
+@import '../components/NotFoundPage/NotFoundPage';
+@import '../components/PersonForm/PersonForm';
+@import '../components/PlaceForm/PlaceForm';
+@import '../components/RegisterPage/RegisterPage';
+@import '../components/SinglePage/SinglePage';
+@import '../components/TextBox/TextBox';
+@import '../components/TypeSelector/TypeSelector';

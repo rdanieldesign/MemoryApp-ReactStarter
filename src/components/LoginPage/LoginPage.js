@@ -1,10 +1,7 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
-import styles from './LoginPage.css';
-import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles)
 class LoginPage extends Component {
 
   static contextTypes = {

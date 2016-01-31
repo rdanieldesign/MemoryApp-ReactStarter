@@ -1,10 +1,7 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { Component } from 'react';
-import styles from './TypeSelector.css';
-import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles)
 class TypeSelector extends Component {
 
   handleSelectChange(e) {

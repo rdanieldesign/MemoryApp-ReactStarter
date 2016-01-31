@@ -1,10 +1,7 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { Component } from 'react';
-import styles from './PlaceForm.css';
-import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles)
 class PlaceForm extends Component {
 
   handleInputChange(e) {

@@ -1,14 +1,11 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
-import styles from './CreatePage.css';
-import withStyles from '../../decorators/withStyles';
 import { addMemory } from '../../stores/MemoryStore';
 import TypeSelector from '../TypeSelector';
 import PersonForm from '../PersonForm';
 import PlaceForm from '../PlaceForm';
 
-@withStyles(styles)
 class CreatePage extends Component {
 
   static contextTypes = {

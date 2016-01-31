@@ -1,11 +1,9 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
-import styles from './HomePage.css';
-import withStyles from '../../decorators/withStyles';
 import MemoryList from '../MemoryList';
+import './HomePage.scss';
 
-@withStyles(styles)
 class HomePage extends Component {
 
   static contextTypes = {
