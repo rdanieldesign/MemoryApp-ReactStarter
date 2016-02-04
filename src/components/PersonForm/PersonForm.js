@@ -1,6 +1,8 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { Component } from 'react';
+import AddField from '../AddField';
+import SearchField from '../SearchField';
 
 class PersonForm extends Component {
 
@@ -18,6 +20,7 @@ class PersonForm extends Component {
           <input type="text" placeholder="Add Title Here" name="title" value='' onChange={this.handleInputChange.bind(this)}/>
           <label>Age</label>
           <input type="text" placeholder="Add Copy Here" name="age" value='' onChange={this.handleInputChange.bind(this)}/>
+          <AddField />
         </section>
       );
 
@@ -29,6 +32,10 @@ class PersonForm extends Component {
           <input type="text" placeholder="Add Title Here" name="title" onChange={this.handleInputChange.bind(this)}/>
           <label>Age</label>
           <input type="text" placeholder="Add Copy Here" name="age" onChange={this.handleInputChange.bind(this)}/>
+          <label>Father</label>
+          <input type="text" placeholder="Person's Name" name="father" data-type="person" onChange={this.handleInputChange.bind(this)}/>
+          <SearchField type='person'/>
+          <AddField />
         </section>
       );
 

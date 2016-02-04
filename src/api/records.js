@@ -22,7 +22,6 @@ router.get('/single/:id', function(req, res) {
 router.post('/new', function(req, res) {
 	let db = req.db;
 	let records = db.get('records');
-  console.log(req.body);
 	records.insert(req.body, function(err, result){
 		res.send(
 			(err === null) ? {msg: ''} : {msg: err}

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import Link from '../Link';
 import Navigation from '../Navigation';
-// require('./Header.scss');
+import './Header.scss';
 
 class Header extends Component {
 

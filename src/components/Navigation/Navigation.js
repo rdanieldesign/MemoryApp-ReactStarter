@@ -3,6 +3,7 @@
 import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
 import Link from '../Link';
+import './Navigation.scss'
 
 class Navigation extends Component {
 

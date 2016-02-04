@@ -5,6 +5,7 @@ import { addMemory } from '../../stores/MemoryStore';
 import TypeSelector from '../TypeSelector';
 import PersonForm from '../PersonForm';
 import PlaceForm from '../PlaceForm';
+import './CreatePage.scss';
 
 class CreatePage extends Component {
 
@@ -15,6 +16,10 @@ class CreatePage extends Component {
   constructor() {
     super();
     this.state = { memory: { type: 'person' } };
+    this.form = {
+      person: <PersonForm className="create-page__input" inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />,
+      place: <PlaceForm className="create-page__input" inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />
+    }
   }
 
   handleTypeChange(e) {
@@ -24,7 +29,6 @@ class CreatePage extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log('memory', this.state.memory);
     addMemory(this.state.memory);
     this.setState({inputsCleared: true});
   }
@@ -39,39 +43,13 @@ class CreatePage extends Component {
     const title = 'Create Page';
     this.context.onSetTitle(title);
 
-    if (this.state.memory.type == 'person') {
-      return (
-        <div className="CreatePage">
-          <form onSubmit={this.handleSubmit.bind(this)}>
-            <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
-            <PersonForm inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />
-            <input type="submit" value="Add New Memory" />
-          </form>
-        </div>
-      );
-
-    } else if (this.state.memory.type == 'place') {
-      return (
-        <div className="CreatePage">
-          <form onSubmit={this.handleSubmit.bind(this)}>
-            <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
-            <PlaceForm inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />
-            <input type="submit" value="Add New Memory" />
-          </form>
-        </div>
-      );
-
-    } else {
-      return (
-        <div className="CreatePage">
-          <form onSubmit={this.handleSubmit.bind(this)}>
-            <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
-            <div> Hello </div>
-            <input type="submit" value="Add New Memory" />
-          </form>
-        </div>
-      );
-    }
+    return (
+      <form className="create-page" onSubmit={this.handleSubmit.bind(this)}>
+        <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
+        { this.form[this.state.memory.type] }
+        <button type="submit"> Add New Memory </button>
+      </form>
+    );
   }
 }
 
