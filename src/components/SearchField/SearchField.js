@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { getAllByType, getByInput } from '../../stores/SearchType';
-const $ = require('jquery');
+import SearchOption from '../SearchOption';
 import './SearchField.scss';
 
 class SearchField extends Component {
@@ -23,7 +23,7 @@ class SearchField extends Component {
 
   populateResults(results) {
     let formatted = results.map( function(item, index){
-      return (<li key={index} properties={item.properties} _id={item._id}> {item.properties.title} </li>);
+      return ( <SearchOption key={index} properties={item.properties} _id={item._id} /> );
     })
     this.setState( { results: formatted })
   }
@@ -44,7 +44,7 @@ class SearchField extends Component {
   render() {
       return (
         <section className="search-field">
-            <input className="search-field__input" type="text" placeholder="Search" data-type={this.props.type} name="search" onChange={this.handleInputChange.bind(this)} />
+            <input className="search-field__input" type="text" placeholder={this.props.placeholder} data-type={this.props.type} name={this.props.name} onChange={this.handleInputChange.bind(this)} />
             <ul>
               { this.state.results }
             </ul>
