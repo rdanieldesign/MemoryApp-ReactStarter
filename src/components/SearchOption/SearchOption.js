@@ -9,9 +9,13 @@ class SearchOption extends Component {
     super();
   }
 
+  optionClick(){
+    this.props.handleOptionClick(this.props._id, this.props.children);
+  }
+
   render() {
       return (
-        <li> {this.props.properties.title} </li>
+        <li onClick={this.optionClick.bind(this)} > {this.props.children} </li>
       );
   }
 

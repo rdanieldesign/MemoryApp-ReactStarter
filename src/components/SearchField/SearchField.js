@@ -4,12 +4,13 @@ import React, { Component } from 'react';
 import { getAllByType, getByInput } from '../../stores/SearchType';
 import SearchOption from '../SearchOption';
 import './SearchField.scss';
+const $ = require('jquery');
 
 class SearchField extends Component {
 
   constructor() {
     super();
-    this.state = { results: [] };
+    this.state = { options: [], selectedOption: '', inputVal: '' };
     this.results = []
   }
 
@@ -22,17 +23,18 @@ class SearchField extends Component {
   }
 
   populateResults(results) {
-    let formatted = results.map( function(item, index){
-      return ( <SearchOption key={index} properties={item.properties} _id={item._id} /> );
+    let formatted = results.map( (item, index) => {
+      return ( <SearchOption key={index} _id={item._id} handleOptionClick={this.handleOptionClick.bind(this)} >{item.title}</SearchOption> );
     })
-    this.setState( { results: formatted })
+    this.setState( { options: formatted })
   }
 
   clearResults(){
-    this.setState( { results: [] });
+    this.setState( { options: [] });
   }
 
   handleInputChange(e){
+    this.setState({ inputVal: e.target.value });
     if (e.target.value === '') {
       this.clearResults();
     } else {
@@ -42,12 +44,17 @@ class SearchField extends Component {
     this.props.onInputChange(e);
   }
 
+  handleOptionClick(id, title){
+    this.setState({ selectedOption: id, inputVal: title });
+    this.props.onInputChange(e);
+  }
+
   render() {
       return (
         <section className="search-field">
-            <input className="search-field__input" type="text" placeholder={this.props.placeholder} data-type={this.props.type} data-id='2' name={this.props.name} onChange={this.handleInputChange.bind(this)} />
+            <input className="search-field__input" type="text" placeholder={this.props.placeholder} data-type={this.props.type} data-id={this.state.selectedOption} name={this.props.name} onChange={this.handleInputChange.bind(this)} value={this.state.inputVal} />
             <ul>
-              { this.state.results }
+              { this.state.options }
             </ul>
         </section>
       );

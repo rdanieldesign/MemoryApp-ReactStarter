@@ -38,13 +38,18 @@ class CreatePage extends Component {
   handleInputChange(e) {
     let type = $(e.target).attr('data-type');
     let id = $(e.target).attr('data-id');
-    console.log(id);
     console.log(type);
+    console.log(id);
     let newState = {inputsCleared: false, properties: this.state.properties};
     if (e.target.name.toString() === 'title') {
       newState.title = e.target.value;
     } else {
-      newState.properties[e.target.name.toString()] = e.target.value;
+      let prop = {
+        type: type || null,
+        title: e.target.value,
+        id: id || null
+      }
+      newState.properties[e.target.name.toString()] = prop;
     }
     this.setState(newState);
   }
