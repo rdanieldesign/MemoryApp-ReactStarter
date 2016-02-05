@@ -33,7 +33,7 @@ class PersonForm extends Component {
           <label>Age</label>
           <input type="text" placeholder="Add Copy Here" name="age" onChange={this.handleInputChange.bind(this)}/>
           <label>Father</label>
-          <SearchField type='person' placeholder="Father's Name" name="father" />
+          <SearchField type='person' placeholder="Father's Name" name="father" onInputChange={this.handleInputChange.bind(this)} />
           <AddField />
         </section>
       );

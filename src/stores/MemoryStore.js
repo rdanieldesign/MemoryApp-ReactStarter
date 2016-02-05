@@ -13,14 +13,21 @@ const getSingleMemory = function(id, cb){
     });
 }
 
-const addMemory = function(memory){
-  testClass(memory);
-  let data = JSON.stringify({ properties: memory });
+const formatData = function(data) {
+  return JSON.stringify({
+    type: data.type,
+    title: data.title,
+    properties: data.properties
+  });
+}
+
+const addMemory = function(data){
+  let formattedData = formatData(data);
   return $.ajax({
       url: '/records/new',
       contentType: 'application/json',
       dataType: 'json',
-      data: data,
+      data: formattedData,
       type: 'POST'
   }).done( function(res){
       if (res.msg === '') {

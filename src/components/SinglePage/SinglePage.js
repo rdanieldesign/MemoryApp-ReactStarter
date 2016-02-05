@@ -13,7 +13,10 @@ class SinglePage extends Component {
   constructor() {
     super();
     this.state = {
-      item: { properties: {} }
+      title: '',
+      type: '',
+      _id: '',
+      properties: {}
     };
   }
 
@@ -22,7 +25,12 @@ class SinglePage extends Component {
   }
 
   handleNewData(data) {
-    this.setState({ item: data });
+    this.setState({
+      title: data.title,
+      type: data.type,
+      _id: data._id,
+      properties: data.properties
+    });
   }
 
   render() {
@@ -32,7 +40,7 @@ class SinglePage extends Component {
     return (
       <div className="SinglePage">
         <ul className="SinglePage-container">
-          <MemoryItem properties={this.state.item.properties} _id={this.state.item._id} key={this.state.item._id} />
+          <MemoryItem title={this.state.title} type={this.state.type} properties={this.state.properties} _id={this.state._id} key={this.state._id} />
         </ul>
       </div>
     );

@@ -6,6 +6,7 @@ import TypeSelector from '../TypeSelector';
 import PersonForm from '../PersonForm';
 import PlaceForm from '../PlaceForm';
 import './CreatePage.scss';
+const $ = require('jquery');
 
 class CreatePage extends Component {
 
@@ -15,7 +16,7 @@ class CreatePage extends Component {
 
   constructor() {
     super();
-    this.state = { memory: { type: 'person' } };
+    this.state = { type: 'person', properties: {}};
     this.form = {
       person: <PersonForm className="create-page__input" inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />,
       place: <PlaceForm className="create-page__input" inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />
@@ -23,19 +24,28 @@ class CreatePage extends Component {
   }
 
   handleTypeChange(e) {
+    console.log(e.target.value);
     this.state = {};
-    this.setState({ memory: { type: e.target.value } });
+    this.setState({ type: e.target.value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    addMemory(this.state.memory);
+    addMemory(this.state);
     this.setState({inputsCleared: true});
   }
 
   handleInputChange(e) {
-    let newState = {inputsCleared: false, memory: this.state.memory};
-    newState.memory[e.target.name.toString()] = e.target.value;
+    let type = $(e.target).attr('data-type');
+    let id = $(e.target).attr('data-id');
+    console.log(id);
+    console.log(type);
+    let newState = {inputsCleared: false, properties: this.state.properties};
+    if (e.target.name.toString() === 'title') {
+      newState.title = e.target.value;
+    } else {
+      newState.properties[e.target.name.toString()] = e.target.value;
+    }
     this.setState(newState);
   }
 
@@ -46,7 +56,7 @@ class CreatePage extends Component {
     return (
       <form className="create-page" onSubmit={this.handleSubmit.bind(this)}>
         <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
-        { this.form[this.state.memory.type] }
+        { this.form[this.state.type] }
         <button type="submit"> Add New Memory </button>
       </form>
     );

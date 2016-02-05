@@ -25,7 +25,7 @@ class MemoryList extends Component {
     let items = [];
 
     this.state.items.forEach( item => {
-      items.push(<MemoryItem properties={item.properties} _id={item._id} key={item._id} />)
+      items.push(<MemoryItem title={item.title} type={item.type} properties={item.properties} _id={item._id} key={item._id} />)
     });
 
     return (

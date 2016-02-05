@@ -39,12 +39,13 @@ class SearchField extends Component {
       let updatedResults = getByInput(e.target.value, this.results);
       this.populateResults(updatedResults);
     }
+    this.props.onInputChange(e);
   }
 
   render() {
       return (
         <section className="search-field">
-            <input className="search-field__input" type="text" placeholder={this.props.placeholder} data-type={this.props.type} name={this.props.name} onChange={this.handleInputChange.bind(this)} />
+            <input className="search-field__input" type="text" placeholder={this.props.placeholder} data-type={this.props.type} data-id='2' name={this.props.name} onChange={this.handleInputChange.bind(this)} />
             <ul>
               { this.state.results }
             </ul>
