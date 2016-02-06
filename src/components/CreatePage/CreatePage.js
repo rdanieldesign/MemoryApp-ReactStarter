@@ -24,7 +24,6 @@ class CreatePage extends Component {
   }
 
   handleTypeChange(e) {
-    console.log(e.target.value);
     this.state = {};
     this.setState({ type: e.target.value });
   }
@@ -35,21 +34,19 @@ class CreatePage extends Component {
     this.setState({inputsCleared: true});
   }
 
-  handleInputChange(e) {
-    let type = $(e.target).attr('data-type');
-    let id = $(e.target).attr('data-id');
-    console.log(type);
-    console.log(id);
+  handleInputChange(input) {
+    // {fieldName: 'title', fieldValue: 'Taylor', type: 'person', id: '432423423423'}
+    console.log(input);
     let newState = {inputsCleared: false, properties: this.state.properties};
-    if (e.target.name.toString() === 'title') {
-      newState.title = e.target.value;
+    if (input.fieldName === 'title') {
+      newState.title = input.fieldValue;
     } else {
       let prop = {
-        type: type || null,
-        title: e.target.value,
-        id: id || null
+        type: input.type || null,
+        title: input.fieldValue,
+        id: input.id || null
       }
-      newState.properties[e.target.name.toString()] = prop;
+      newState.properties[input.fieldName] = prop;
     }
     this.setState(newState);
   }

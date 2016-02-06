@@ -45,8 +45,15 @@ class SearchField extends Component {
   }
 
   handleOptionClick(id, title){
+    // {fieldName: 'title', fieldValue: 'Taylor', type: 'person', id: '432423423423'}
+    let input = {
+      fieldName: this.props.name,
+      fieldValue: title,
+      type: this.props.type,
+      id: id
+    }
     this.setState({ selectedOption: id, inputVal: title });
-    this.props.onInputChange(e);
+    this.props.onInputChange(input);
   }
 
   render() {

@@ -9,7 +9,15 @@ class MemoryItem extends Component {
     let properties = [];
 
     for(var i in this.props.properties){
-      properties.push(<li key={i}> {i}: {this.props.properties[i]} </li>);
+      if (this.props.properties[i].id) {
+        properties.push(
+          <li key={i}> {i}:
+            <a href={`/single/${this.props.properties[i].id}`} onClick={Link.handleClick}> {this.props.properties[i].title} </a>
+          </li>
+        );
+      } else {
+        properties.push(<li key={i}> {i}: {this.props.properties[i].title} </li>);
+      }
     }
 
     return (
@@ -18,7 +26,7 @@ class MemoryItem extends Component {
         <ul>
           { properties }
         </ul>
-        <a href={"/single/" + this.props._id} onClick={Link.handleClick}> See More </a>
+        <a href={`/single/${this.props._id}`} onClick={Link.handleClick}> See More </a>
       </li>
     );
   }
