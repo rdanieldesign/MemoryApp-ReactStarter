@@ -10,8 +10,8 @@ class SearchField extends Component {
 
   constructor() {
     super();
-    this.state = { options: [], selectedOption: '', inputVal: '' };
-    this.results = []
+    this.state = { options: [], locked: false, inputVal: '' };
+    this.results = [];
   }
 
   componentDidMount() {
@@ -34,14 +34,16 @@ class SearchField extends Component {
   }
 
   handleInputChange(e){
-    this.setState({ inputVal: e.target.value });
-    if (e.target.value === '') {
-      this.clearResults();
-    } else {
-      let updatedResults = getByInput(e.target.value, this.results);
-      this.populateResults(updatedResults);
+    if (!this.state.locked) {
+      this.setState({ inputVal: e.target.value });
+      if (e.target.value === '') {
+        this.clearResults();
+      } else {
+        let updatedResults = getByInput(e.target.value, this.results);
+        this.populateResults(updatedResults);
+      }
+      this.props.onInputChange(e);
     }
-    this.props.onInputChange(e);
   }
 
   handleOptionClick(id, title){
@@ -52,14 +54,27 @@ class SearchField extends Component {
       type: this.props.type,
       id: id
     }
-    this.setState({ selectedOption: id, inputVal: title });
+    this.setState({ selectedOption: id, inputVal: title, locked: true });
     this.props.onInputChange(input);
+    this.clearResults();
+  }
+
+  clearSelectedOption(){
+    let input = {
+      fieldName: this.props.name,
+      fieldValue: '',
+      type: this.props.type,
+      id: null
+    };
+    this.props.onInputChange(input);
+    this.setState({ selectedOption: null, inputVal: '', locked: false });
   }
 
   render() {
       return (
         <section className="search-field">
             <input className="search-field__input" type="text" placeholder={this.props.placeholder} data-type={this.props.type} data-id={this.state.selectedOption} name={this.props.name} onChange={this.handleInputChange.bind(this)} value={this.state.inputVal} />
+            { this.state.locked ? <button className="search-field__clearBtn" onClick={this.clearSelectedOption.bind(this)}>x</button> : null }
             <ul>
               { this.state.options }
             </ul>
