@@ -9,15 +9,10 @@ const filterByType = function(data, type){
   return filtered;
 }
 
-const getAllMemories = function(type, cb, context){
-  $.getJSON('/records/all').done( data => {
-    let results = filterByType(data, type);
-    cb.call(context, results);
-  });
-}
-
 const getAllByType = function(type, cb) {
-  getAllMemories(type, cb, this);
+  $.getJSON(`/records/category/${type}`).done( data => {
+    cb.call(this, data);
+  });
 }
 
 const getByInput = function(input, arr){

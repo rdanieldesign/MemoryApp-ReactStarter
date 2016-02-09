@@ -13,6 +13,7 @@ import ErrorPage from './components/ErrorPage';
 import HomePage from './components/HomePage';
 import SinglePage from './components/SinglePage';
 import CreatePage from './components/CreatePage';
+import EditPage from './components/EditPage'
 
 const router = new Router(on => {
   on('*', async (state, next) => {
@@ -25,6 +26,8 @@ const router = new Router(on => {
   on('/single/:id', async (state) => <SinglePage _id={state.params.id}/>);
 
   on('/create', async () => <CreatePage />);
+
+  on('/edit/:id', async (state) => <EditPage _id={state.params.id}/>);
 
   on('/contact', async () => <ContactPage />);
 

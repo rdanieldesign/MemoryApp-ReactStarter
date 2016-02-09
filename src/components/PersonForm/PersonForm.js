@@ -40,6 +40,8 @@ class PersonForm extends Component {
           <input type="text" placeholder="Add Copy Here" name="age" value='' onChange={this.handleInputChange.bind(this)}/>
           <label>Father</label>
           <SearchField type='person' placeholder="Father's Name" name="father" onInputChange={this.handleInputChange.bind(this)} />
+          <label>Home Town</label>
+          <SearchField type='place' placeholder="Home Town" name="homeTown" onInputChange={this.handleInputChange.bind(this)} />
           <AddField />
         </section>
       );
@@ -54,6 +56,8 @@ class PersonForm extends Component {
           <input type="text" placeholder="Add Copy Here" name="age" onChange={this.handleInputChange.bind(this)}/>
           <label>Father</label>
           <SearchField type='person' placeholder="Father's Name" name="father" onInputChange={this.handleInputChange.bind(this)} />
+          <label>Home Town</label>
+          <SearchField type='place' placeholder="Home Town" name="homeTown" onInputChange={this.handleInputChange.bind(this)} />
           <AddField />
         </section>
       );

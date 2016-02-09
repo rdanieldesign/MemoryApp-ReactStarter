@@ -18,6 +18,12 @@ class SearchField extends Component {
     getAllByType.call(this, this.props.type, this.getResults);
   }
 
+  componentWillUpdate(nextProps) {
+    if(this.props.type !== nextProps.type){
+      getAllByType.call(this, nextProps.type, this.getResults);
+    }
+  }
+
   getResults(results) {
     this.results = results;
   }
@@ -74,7 +80,7 @@ class SearchField extends Component {
       return (
         <section className="search-field">
             <input className="search-field__input" type="text" placeholder={this.props.placeholder} data-type={this.props.type} data-id={this.state.selectedOption} name={this.props.name} onChange={this.handleInputChange.bind(this)} value={this.state.inputVal} />
-            { this.state.locked ? <button className="search-field__clearBtn" onClick={this.clearSelectedOption.bind(this)}>x</button> : null }
+            { this.state.locked ? <button className="search-field__clearBtn" onClick={this.clearSelectedOption.bind(this)}>clear</button> : null }
             <ul>
               { this.state.options }
             </ul>

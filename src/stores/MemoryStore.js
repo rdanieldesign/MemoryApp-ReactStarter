@@ -38,9 +38,25 @@ const addMemory = function(data){
   });
 };
 
+const updateMemory = function(data) {
+  let formattedData = formatData(data);
+  return $.ajax({
+      url: `/records/update/${data._id}`,
+      contentType: 'application/json',
+      data: formattedData,
+      type: 'PUT'
+  }).done( function(res){
+      if (res.msg === '') {
+          console.log('wonderful!');
+      } else {
+          alert(res.msg);
+      }
+  });
+}
+
 const testClass = (memory) => {
   // new Person(memory);
 }
 
 // export { Memories as default, addMemory };
-export { getAllMemories, getSingleMemory, addMemory };
+export { getAllMemories, getSingleMemory, addMemory, updateMemory };

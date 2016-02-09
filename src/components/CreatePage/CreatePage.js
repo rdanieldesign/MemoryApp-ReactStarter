@@ -25,7 +25,7 @@ class CreatePage extends Component {
 
   handleTypeChange(e) {
     this.state = {};
-    this.setState({ type: e.target.value });
+    this.setState({ type: e.target.value, properties: {} });
   }
 
   handleSubmit(e) {
@@ -36,19 +36,20 @@ class CreatePage extends Component {
 
   handleInputChange(input) {
     // {fieldName: 'title', fieldValue: 'Taylor', type: 'person', id: '432423423423'}
-    console.log(input);
-    let newState = {inputsCleared: false, properties: this.state.properties};
-    if (input.fieldName === 'title') {
-      newState.title = input.fieldValue;
-    } else {
-      let prop = {
-        type: input.type || null,
-        title: input.fieldValue,
-        id: input.id || null
+    if (input.fieldValue) {
+      let newState = {inputsCleared: false, properties: this.state.properties};
+      if (input.fieldName === 'title') {
+        newState.title = input.fieldValue;
+      } else {
+        let prop = {
+          type: input.type || null,
+          title: input.fieldValue,
+          id: input.id || null
+        }
+        newState.properties[input.fieldName] = prop;
       }
-      newState.properties[input.fieldName] = prop;
+      this.setState(newState);
     }
-    this.setState(newState);
   }
 
   render() {

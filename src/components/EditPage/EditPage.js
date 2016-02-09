@@ -1,11 +1,10 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
-import MemoryItem from '../MemoryItem';
+import EditForm from '../EditForm';
 import { getSingleMemory } from '../../stores/MemoryStore';
-import Link from '../Link';
 
-class SinglePage extends Component {
+class EditPage extends Component {
 
   static contextTypes = {
     onSetTitle: PropTypes.func.isRequired,
@@ -35,14 +34,13 @@ class SinglePage extends Component {
   }
 
   render() {
-    const title = 'Home Page';
+    const title = 'Edit Page';
     this.context.onSetTitle(title);
 
     return (
-      <div className="SinglePage">
-        <ul className="SinglePage-container">
-          <MemoryItem title={this.state.title} type={this.state.type} properties={this.state.properties} _id={this.state._id} key={this.state._id} />
-          <a href={`/edit/${this.props._id}`} onClick={Link.handleClick}>Edit</a>
+      <div className="EditPage">
+        <ul className="EditPage-container">
+          <EditForm title={this.state.title} type={this.state.type} properties={this.state.properties} _id={this.state._id} key={this.state._id} />
         </ul>
       </div>
     );
@@ -50,4 +48,4 @@ class SinglePage extends Component {
 
 }
 
-export default SinglePage;
+export default EditPage;

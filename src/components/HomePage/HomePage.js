@@ -2,7 +2,9 @@
 
 import React, { PropTypes, Component } from 'react';
 import MemoryList from '../MemoryList';
+import Search from '../Search';
 import './HomePage.scss';
+const $ = require('jquery');
 
 class HomePage extends Component {
 
@@ -16,6 +18,7 @@ class HomePage extends Component {
     return (
       <div className="HomePage">
         <div className="HomePage-container">
+          <Search />
           <MemoryList />
         </div>
       </div>
