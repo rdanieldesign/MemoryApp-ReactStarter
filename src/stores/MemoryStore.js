@@ -54,9 +54,24 @@ const updateMemory = function(data) {
   });
 }
 
+const deleteMemory = function(id) {
+  return $.ajax({
+      url: `/records/delete/${id}`,
+      contentType: 'application/json',
+      data: {},
+      type: 'POST'
+  }).done( function(res){
+      if (res.msg === '') {
+          console.log('deleted!');
+      } else {
+          alert(res.msg);
+      }
+  });
+}
+
 const testClass = (memory) => {
   // new Person(memory);
 }
 
 // export { Memories as default, addMemory };
-export { getAllMemories, getSingleMemory, addMemory, updateMemory };
+export { getAllMemories, getSingleMemory, addMemory, updateMemory, deleteMemory };

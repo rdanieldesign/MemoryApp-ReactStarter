@@ -33,6 +33,18 @@ router.put('/update/:id', function(req, res) {
 	});
 });
 
+// DELETE Single
+router.post('/delete/:id', function(req, res) {
+	let db = req.db;
+	let records = db.get('records');
+	let singleId = new ObjectId(req.params.id);
+	records.remove( { _id: singleId }, function(err, result){
+		res.send(
+			(err === null) ? {msg: ''} : {msg: err}
+		);
+	});
+});
+
 // GET Category
 router.get('/category/:type', function(req, res) {
 	let db = req.db;
