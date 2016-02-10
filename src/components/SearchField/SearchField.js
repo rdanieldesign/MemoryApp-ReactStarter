@@ -16,10 +16,20 @@ class SearchField extends Component {
 
   componentDidMount() {
     getAllByType.call(this, this.props.type, this.getResults);
+    if (this.props.preselect) {
+      let pre = this.props.preselect;
+      let input = {
+        fieldName: this.props.name,
+        fieldValue: pre.title,
+        type: this.props.type,
+        id: pre.id
+      };
+      this.setState({ selectedOption: pre.id, inputVal: pre.title, locked: true });
+    }
   }
 
   componentWillUpdate(nextProps) {
-    if(this.props.type !== nextProps.type){
+    if (this.props.type !== nextProps.type) {
       getAllByType.call(this, nextProps.type, this.getResults);
     }
   }
