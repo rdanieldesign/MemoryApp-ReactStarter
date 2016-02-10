@@ -17,7 +17,7 @@ const getAllByType = function(type, cb) {
 
 const getByInput = function(input, arr){
    return arr.filter( function(item){
-    let title = item.title.toLowerCase();
+    let title = item.title ? item.title.toLowerCase() : '';
     let searchTerm = input.toLowerCase();
     if(title.indexOf(searchTerm) != -1) {
       return item;

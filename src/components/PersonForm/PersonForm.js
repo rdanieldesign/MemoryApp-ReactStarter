@@ -42,7 +42,7 @@ class PersonForm extends Component {
           <SearchField type='person' placeholder="Father's Name" name="father" onInputChange={this.handleInputChange.bind(this)} />
           <label>Home Town</label>
           <SearchField type='place' placeholder="Home Town" name="homeTown" onInputChange={this.handleInputChange.bind(this)} />
-          <AddField />
+          <AddField onInputChange={this.handleInputChange.bind(this)} />
         </section>
       );
 
@@ -58,7 +58,7 @@ class PersonForm extends Component {
           <SearchField type='person' placeholder="Father's Name" name="father" onInputChange={this.handleInputChange.bind(this)} />
           <label>Home Town</label>
           <SearchField type='place' placeholder="Home Town" name="homeTown" onInputChange={this.handleInputChange.bind(this)} />
-          <AddField />
+          <AddField onInputChange={this.handleInputChange.bind(this)}/>
         </section>
       );
 
