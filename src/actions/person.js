@@ -17,7 +17,6 @@ class Person extends Memory {
   }
 
   controller () {
-    console.log(this.options);
   }
 }
 

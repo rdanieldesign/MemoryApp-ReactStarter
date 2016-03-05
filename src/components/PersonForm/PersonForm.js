@@ -1,7 +1,6 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { Component } from 'react';
-import AddField from '../AddField';
 import SearchField from '../SearchField';
 const $ = require('jquery');
 
@@ -34,15 +33,12 @@ class PersonForm extends Component {
 
       return (
         <section className="personForm">
-          <label>Name</label>
-          <input type="text" placeholder="Add Title Here" name="title" value='' onChange={this.handleInputChange.bind(this)}/>
           <label>Age</label>
           <input type="text" placeholder="Add Copy Here" name="age" value='' onChange={this.handleInputChange.bind(this)}/>
           <label>Father</label>
           <SearchField type='person' placeholder="Father's Name" name="father" onInputChange={this.handleInputChange.bind(this)} />
           <label>Home Town</label>
           <SearchField type='place' placeholder="Home Town" name="homeTown" onInputChange={this.handleInputChange.bind(this)} />
-          <AddField onInputChange={this.handleInputChange.bind(this)} />
         </section>
       );
 
@@ -50,15 +46,12 @@ class PersonForm extends Component {
 
       return (
         <section className="personForm">
-          <label>Name</label>
-          <input type="text" placeholder="Add Title Here" name="title" onChange={this.handleInputChange.bind(this)}/>
           <label>Age</label>
           <input type="text" placeholder="Add Copy Here" name="age" onChange={this.handleInputChange.bind(this)}/>
           <label>Father</label>
           <SearchField type='person' placeholder="Father's Name" name="father" onInputChange={this.handleInputChange.bind(this)} />
           <label>Home Town</label>
           <SearchField type='place' placeholder="Home Town" name="homeTown" onInputChange={this.handleInputChange.bind(this)} />
-          <AddField onInputChange={this.handleInputChange.bind(this)}/>
         </section>
       );
 

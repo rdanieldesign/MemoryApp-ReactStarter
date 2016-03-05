@@ -12,26 +12,21 @@ class EditForm extends Component {
     super();
 
     this.state = {
-      updatedProps: {
-        title: '',
-        _id: '',
-        type: '',
-        properties: {}
-      }
+      updatedProps: {}
     }
   };
 
   componentDidMount(){
     this.setState(function(previousState, currentProps){
-      return { updatedProps: currentProps }
+      return { updatedProps: currentProps.properties }
     });
   };
 
   createInputs(){
     this.inputList = [];
 
-    for(var i in this.state.updatedProps.properties){
-      let prop = this.state.updatedProps.properties[i];
+    for(var i in this.state.updatedProps){
+      let prop = this.state.updatedProps[i];
       if (prop.type) {
         let preselected = { title: prop.title, id: prop.id };
         this.inputList.push(<SearchField key={i} type={prop.type} placeholder={i} name={i} preselect={preselected} onInputChange={this.handleInputChange.bind(this)} />)
@@ -43,7 +38,12 @@ class EditForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    updateMemory(this.state.updatedProps);
+    updateMemory({
+      title: this.props.title,
+      type: this.props.type,
+      _id: this.props._id,
+      properties: this.state.updatedProps
+    });
   };
 
   handleInputChange(e) {
@@ -65,27 +65,21 @@ class EditForm extends Component {
     }
 
     let newProps = this.state.updatedProps;
-    if (input.fieldName === 'title') {
-      newProps.title = input.fieldValue;
-    } else {
-      let prop = {
-        type: input.type || null,
-        title: input.fieldValue,
-        id: input.id || null
-      }
-      newProps.properties[input.fieldName] = prop;
+    let prop = {
+      type: input.type || null,
+      title: input.fieldValue,
+      id: input.id || null
     }
+    newProps[input.fieldName] = prop;
 
     this.setState({ updatedProps: newProps });
   }
 
   render() {
     this.createInputs();
-    console.log(this.state);
     return (
       <form className="editForm" onSubmit={this.handleSubmit.bind(this)}>
-        <label>Name</label>
-        <input type="text" placeholder="Add Title Here" name="title" value={this.state.updatedProps.title} onChange={this.handleInputChange.bind(this)}/>
+        <h1>{this.props.title}</h1>
         { this.inputList }
         <button type='submit'>Submit Changes</button>
       </form>

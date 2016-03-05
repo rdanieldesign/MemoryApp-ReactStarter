@@ -33,6 +33,7 @@ server.use(function(req, res, next){
 // -----------------------------------------------------------------------------
 server.use('/api/content', require('./api/content'));
 server.use('/records', require('./api/records'));
+server.use('/categories', require('./api/categories'));
 
 //
 // Register server-side rendering middleware

@@ -58,8 +58,6 @@ class Search extends Component {
         id: e.id || null
       }
     }
-
-    console.log(input);
   }
 
   handleSubmit(e) {

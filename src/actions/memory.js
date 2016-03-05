@@ -11,7 +11,6 @@ class Memory {
   }
 
   sayHello () {
-    console.log('hello');
   }
 }
 

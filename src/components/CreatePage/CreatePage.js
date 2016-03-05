@@ -5,6 +5,7 @@ import { addMemory } from '../../stores/MemoryStore';
 import TypeSelector from '../TypeSelector';
 import PersonForm from '../PersonForm';
 import PlaceForm from '../PlaceForm';
+import AddField from '../AddField';
 import './CreatePage.scss';
 const $ = require('jquery');
 
@@ -34,6 +35,16 @@ class CreatePage extends Component {
     this.setState({inputsCleared: true});
   }
 
+  handleAddedInput(e) {
+    let input = {
+      fieldName: e.target.name,
+      fieldValue: e.target.value,
+      type: $(e.target).attr('data-type') || null,
+      id: $(e.target).attr('data-id') || null
+    }
+    this.handleInputChange(input);
+  }
+
   handleInputChange(input) {
     // {fieldName: 'title', fieldValue: 'Taylor', type: 'person', id: '432423423423'}
     if (input.fieldValue) {
@@ -59,7 +70,10 @@ class CreatePage extends Component {
     return (
       <form className="create-page" onSubmit={this.handleSubmit.bind(this)}>
         <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
+        <label>Title</label>
+        <input type="text" placeholder="Add Title Here" name="title" onChange={this.handleAddedInput.bind(this)}/>
         { this.form[this.state.type] }
+        <AddField onInputChange={this.handleAddedInput.bind(this)} />
         <button type="submit"> Add New Memory </button>
       </form>
     );
