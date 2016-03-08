@@ -2,7 +2,7 @@ const $ = require('jquery');
 
 const memories = [];
 
-const filterByType = function(data, type){
+const filterByType = function(data, type) {
   let filtered = data.filter( (el) => {
     return el.type === type;
   })
@@ -15,7 +15,7 @@ const getAllByType = function(type, cb) {
   });
 }
 
-const getByInput = function(input, arr){
+const getByInput = function(input, arr) {
    return arr.filter( function(item){
     let title = item.title ? item.title.toLowerCase() : '';
     let searchTerm = input.toLowerCase();

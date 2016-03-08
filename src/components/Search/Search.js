@@ -2,6 +2,9 @@
 
 import React, { Component } from 'react';
 import SearchField from '../SearchField';
+import { getAllCategories } from '../../stores/CategoryStore';
+import Util from '../../stores/utility';
+const util = new Util();
 import './Search.scss';
 const $ = require('jquery');
 
@@ -9,32 +12,33 @@ class Search extends Component {
 
   constructor() {
     super();
-    this.state = { searchType: 'person'};
-    this.searchTypes = {
-      person: {
-        type: 'person',
-        placeholder: 'Search for the name of a person',
-        name: 'personSearch'
-      },
-      place: {
-        type: 'place',
-        placeholder: 'Search for a place',
-        name: 'placeSearch'
-      }
-    };
+    this.state = { searchType: 'person', categories: []};
+    // this.searchTypes = {
+    //   person: {
+    //     type: 'person',
+    //     placeholder: 'Search for the name of a person',
+    //     name: 'personSearch'
+    //   },
+    //   place: {
+    //     type: 'place',
+    //     placeholder: 'Search for a place',
+    //     name: 'placeSearch'
+    //   }
+    // };
     this.options = [];
-    this.loadOptions();
   }
 
   componentDidMount() {
+    getAllCategories.call(this, this.loadOptions);
   }
 
-  loadOptions() {
-    for(var i in this.searchTypes){
+  loadOptions(categories) {
+    for(var i in categories){
       this.options.push(
-        <option key={i} value={i}>{this.searchTypes[i].type}</option>
+        <option key={i} value={i}>{categories[i].type}</option>
       )
     }
+    this.setState( { categories: this.options } );
   }
 
   handleTypeChange(e) {
@@ -42,22 +46,7 @@ class Search extends Component {
   }
 
   handleSearchChange(e) {
-    let input;
-    if (e.target) {
-      input = {
-        fieldName: e.target.name,
-        fieldValue: e.target.value,
-        type: $(e.target).attr('data-type') || null,
-        id: $(e.target).attr('data-id') || null
-      }
-    } else {
-      input = {
-        fieldName: e.fieldName,
-        fieldValue: e.fieldValue,
-        type: e.type || null,
-        id: e.id || null
-      }
-    }
+    let input = util.inputFormatter(e);
   }
 
   handleSubmit(e) {
@@ -68,12 +57,12 @@ class Search extends Component {
       return (
         <form className="search" onSubmit={this.handleSubmit.bind(this)}>
           <SearchField
-            type={this.searchTypes[this.state.searchType].type}
-            placeholder={this.searchTypes[this.state.searchType].placeholder}
-            name={this.searchTypes[this.state.searchType].name}
+            type={this.state.searchType}
+            placeholder='placeholder'
+            name={this.state.searchType}
             onInputChange={this.handleSearchChange.bind(this)} />
           <select onChange={this.handleTypeChange.bind(this)}>
-            { this.options }
+            { this.state.categories }
           </select>
           <button type="submit">Submit</button>
       </form>

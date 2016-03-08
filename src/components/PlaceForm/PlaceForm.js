@@ -1,28 +1,14 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { Component } from 'react';
+import Util from '../../stores/utility';
+const util = new Util();
 const $ = require('jquery');
 
 class PlaceForm extends Component {
 
   handleInputChange(e) {
-    // {fieldName: 'title', fieldValue: 'Taylor', type: 'person', id: '432423423423'}
-    let input;
-    if (e.target) {
-      input = {
-        fieldName: e.target.name,
-        fieldValue: e.target.value,
-        type: $(e.target).attr('data-type') || null,
-        id: $(e.target).attr('data-id') || null
-      }
-    } else {
-      input = {
-        fieldName: e.fieldName,
-        fieldValue: e.fieldValue,
-        type: e.type || null,
-        id: e.id || null
-      }
-    }
+    let input = util.inputFormatter(e);
     this.props.onInputChange(input);
   }
 
