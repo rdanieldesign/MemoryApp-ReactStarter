@@ -33,10 +33,6 @@ class TypeSelector extends Component {
       <section>
         <select className="typeSelector" name="typeSelector" onChange={this.handleSelectChange.bind(this)}>
           <option value="none"> None </option>
-          <option value="person"> Person </option>
-          <option value="date"> Date </option>
-          <option value="place"> Place </option>
-          <option value="info"> Information </option>
           { this.loadOptions() }
         </select>
         <p>or enter a new category:</p>

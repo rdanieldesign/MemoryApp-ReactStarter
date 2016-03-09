@@ -6,6 +6,7 @@ import { addCategory, getAllCategories, checkForExistingCategory } from '../../s
 import TypeSelector from '../TypeSelector';
 import PersonForm from '../PersonForm';
 import PlaceForm from '../PlaceForm';
+import DynamicForm from '../DynamicForm';
 import AddField from '../AddField';
 import './CreatePage.scss';
 const $ = require('jquery');
@@ -18,18 +19,24 @@ class CreatePage extends Component {
 
   constructor() {
     super();
-    this.state = { type: 'person', properties: {}, categories: null};
-    this.form = {
-      person: <PersonForm className="create-page__input" inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />,
-      place: <PlaceForm className="create-page__input" inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />
-    }
+    this.state = { type: '', properties: {}, categories: null};
+    this.catMap = {};
   }
 
   componentDidMount() {
     let cb = function(data){
+      this.mapCategories(data);
       this.setState({ categories: data });
     };
     getAllCategories.call(this, cb);
+  }
+
+  mapCategories(categories) {
+    categories.forEach( cat => {
+      this.catMap[cat.type] = cat.properties;
+    });
+
+    console.log(this.catMap);
   }
 
   handleTypeChange(type) {
@@ -40,12 +47,11 @@ class CreatePage extends Component {
     e.preventDefault();
     this.addCategory();
     addMemory(this.state);
-    this.setState({inputsCleared: true});
   }
 
   addCategory() {
     if (!checkForExistingCategory(this.state.type, this.state.categories)) {
-      addCategory.call(this, { type: this.state.type });
+      addCategory.call(this, { type: this.state.type, properties: Object.keys(this.state.properties) });
     } else {
       console.log('category already exists');
     }
@@ -64,7 +70,7 @@ class CreatePage extends Component {
   handleInputChange(input) {
     // {fieldName: 'title', fieldValue: 'Taylor', type: 'person', id: '432423423423'}
     if (input.fieldValue) {
-      let newState = {inputsCleared: false, properties: this.state.properties};
+      let newState = { properties: this.state.properties };
       if (input.fieldName === 'title') {
         newState.title = input.fieldValue;
       } else {
@@ -88,7 +94,7 @@ class CreatePage extends Component {
         <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} categories={this.state.categories}/>
         <label>Title</label>
         <input type="text" placeholder="Add Title Here" name="title" onChange={this.handleAddedInput.bind(this)}/>
-        { this.form[this.state.type] }
+        <DynamicForm className="create-page__input" onInputChange={this.handleInputChange.bind(this)} typeProperties={this.catMap[this.state.type]} />
         <AddField onInputChange={this.handleAddedInput.bind(this)} />
         <button type="submit"> Add New Memory </button>
       </form>
