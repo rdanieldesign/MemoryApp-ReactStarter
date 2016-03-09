@@ -12,76 +12,86 @@ class EditForm extends Component {
 
   constructor(){
     super();
-
-    this.state = {
-      updatedProps: {}
-    }
+    this.state = { newProps: {}, inputList: [] }
+    this.originalProps = [];
   };
 
   componentDidMount(){
-    this.setState(function(previousState, currentProps){
-      return { updatedProps: currentProps.properties }
-    });
+    this.createInputs(this.props.properties);
+    this.originalProps = this.props.properties;
   };
 
-  createInputs(){
-    this.inputList = [];
-
-    for(var i in this.state.updatedProps){
-      let prop = this.state.updatedProps[i];
+  createInputs(props){
+    let inputList = [];
+    console.log(props);
+    for(var i in props){
+      let prop = props[i];
       if (prop.type) {
         let preselected = { title: prop.title, id: prop.id };
-        this.inputList.push(<div key={i}>
-            <SearchField type={prop.type} placeholder={i} name={i} preselect={preselected} onInputChange={this.handleInputChange.bind(this)} />
+        inputList.push(<div key={i}>
+            <SearchField type={prop.type} placeholder={i} name={i} preselect={preselected} onInputChange={this.handleOriginalInputChange.bind(this)} />
             <button name={i} onClick={this.deleteProperty.bind(this)}>X</button>
           </div>)
       } else {
-        this.inputList.push(<input key={i} type="text" placeholder={i} name={i} value={prop.title} onChange={this.handleInputChange.bind(this)}/>)
+        inputList.push(<div key={i}>
+            <input key={i} type="text" placeholder={i} name={i} value={prop.title} onChange={this.handleOriginalInputChange.bind(this)}/>
+            <button name={i} onClick={this.deleteProperty.bind(this)}>X</button>
+          </div>)
       }
     }
+    this.setState({ inputList: inputList });
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    let allProps = util.extend(this.originalProps, this.state.newProps);
     updateMemory({
       title: this.props.title,
       type: this.props.type,
       _id: this.props._id,
-      properties: this.state.updatedProps
+      properties: allProps
     });
   };
 
-  handleInputChange(e) {
+  handleOriginalInputChange(e) {
     let input = util.inputFormatter(e);
-    let newProps = this.state.updatedProps;
+    let prop = {
+      type: input.type || null,
+      title: input.fieldValue,
+      id: input.id || null
+    }
+    this.originalProps[input.fieldName] = prop;
+    this.createInputs(this.originalProps);
+  }
+
+  handleNewInputChange(e) {
+    let input = util.inputFormatter(e);
+    let newProps = this.state.newProps;
     let prop = {
       type: input.type || null,
       title: input.fieldValue,
       id: input.id || null
     }
     newProps[input.fieldName] = prop;
-    this.setState({ updatedProps: newProps });
+    this.setState({ newProps: newProps });
   }
 
   deleteProperty(e) {
     e.preventDefault();
-    let newProps = this.state.updatedProps;
-    delete newProps[e.target.name];
-    this.setState({ updatedProps: newProps });
+    delete this.originalProps[e.target.name];
+    this.createInputs(this.originalProps);
   }
 
   render() {
-    this.createInputs();
     return (
       <form className="editForm" onSubmit={this.handleSubmit.bind(this)}>
         <h1>{this.props.title}</h1>
-        { this.inputList }
-        <AddField onInputChange={this.handleInputChange.bind(this)} />
+        { this.state.inputList }
+        <AddField onInputChange={this.handleNewInputChange.bind(this)} />
         <button type='submit'>Submit Changes</button>
       </form>
     );
   }
-
 }
 
 export default EditForm;

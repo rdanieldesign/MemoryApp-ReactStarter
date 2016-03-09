@@ -2,39 +2,46 @@
 
 import React, { Component } from 'react';
 import { getAllCategories } from '../../stores/CategoryStore';
+const $ = require('jquery');
 
 class TypeSelector extends Component {
 
-  constructor() {
-    super();
-    this.state = { categories: [] };
-  }
-
-  componentDidMount() {
-    getAllCategories.call(this, this.loadOptions);
-  }
-
-  loadOptions(categories) {
-    let catOptions = [];
-    categories.forEach( (cat, index) => {
-      catOptions.push(<option value={cat.type} key={index}> {cat.type} </option>);
-    });
-    this.setState({ categories: catOptions });
+  loadOptions() {
+    if (this.props.categories) {
+      let catOptions = [];
+      this.props.categories.forEach( (cat, index) => {
+        catOptions.push(<option value={cat.type} key={index}> {cat.type} </option>);
+      });
+      return catOptions;
+    } else {
+      return [];
+    }
   }
 
   handleSelectChange(e) {
-    this.props.onTypeChange(e);
+    $('[name="typeInput"]').val('');
+    this.props.onTypeChange(e.target.value);
+  }
+
+  handleInputChange(e) {
+    $('[name="typeSelector"]').val('none');
+    this.props.onTypeChange(e.target.value);
   }
 
   render() {
     return (
-      <select className="typeSelector" onChange={this.handleSelectChange.bind(this)}>
-        <option value="person"> Person </option>
-        <option value="date"> Date </option>
-        <option value="place"> Place </option>
-        <option value="info"> Information </option>
-        { this.state.categories }
-      </select>
+      <section>
+        <select className="typeSelector" name="typeSelector" onChange={this.handleSelectChange.bind(this)}>
+          <option value="none"> None </option>
+          <option value="person"> Person </option>
+          <option value="date"> Date </option>
+          <option value="place"> Place </option>
+          <option value="info"> Information </option>
+          { this.loadOptions() }
+        </select>
+        <p>or enter a new category:</p>
+        <input type="text" name="typeInput" placeholder="Enter new category" onChange={this.handleInputChange.bind(this)}/>
+      </section>
     );
   }
 

@@ -4,6 +4,11 @@ class Util {
 
   constructor () {}
 
+  extend(obj1, obj2) {
+    let newObj = Object.assign(obj1, obj2);
+    return newObj;
+  }
+
   inputFormatter(input) {
     // {fieldName: 'title', fieldValue: 'Taylor', type: 'person', id: '432423423423'}
     let data;

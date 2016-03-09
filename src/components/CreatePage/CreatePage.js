@@ -2,6 +2,7 @@
 
 import React, { PropTypes, Component } from 'react';
 import { addMemory } from '../../stores/MemoryStore';
+import { addCategory, getAllCategories, checkForExistingCategory } from '../../stores/CategoryStore';
 import TypeSelector from '../TypeSelector';
 import PersonForm from '../PersonForm';
 import PlaceForm from '../PlaceForm';
@@ -17,22 +18,37 @@ class CreatePage extends Component {
 
   constructor() {
     super();
-    this.state = { type: 'person', properties: {}};
+    this.state = { type: 'person', properties: {}, categories: null};
     this.form = {
       person: <PersonForm className="create-page__input" inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />,
       place: <PlaceForm className="create-page__input" inputsCleared={this.state.inputsCleared} onInputChange={this.handleInputChange.bind(this)} />
     }
   }
 
-  handleTypeChange(e) {
-    this.state = {};
-    this.setState({ type: e.target.value, properties: {} });
+  componentDidMount() {
+    let cb = function(data){
+      this.setState({ categories: data });
+    };
+    getAllCategories.call(this, cb);
+  }
+
+  handleTypeChange(type) {
+    this.setState({ type: type });
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    this.addCategory();
     addMemory(this.state);
     this.setState({inputsCleared: true});
+  }
+
+  addCategory() {
+    if (!checkForExistingCategory(this.state.type, this.state.categories)) {
+      addCategory.call(this, { type: this.state.type });
+    } else {
+      console.log('category already exists');
+    }
   }
 
   handleAddedInput(e) {
@@ -69,7 +85,7 @@ class CreatePage extends Component {
 
     return (
       <form className="create-page" onSubmit={this.handleSubmit.bind(this)}>
-        <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} />
+        <TypeSelector onTypeChange={this.handleTypeChange.bind(this)} categories={this.state.categories}/>
         <label>Title</label>
         <input type="text" placeholder="Add Title Here" name="title" onChange={this.handleAddedInput.bind(this)}/>
         { this.form[this.state.type] }
